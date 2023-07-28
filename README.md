@@ -8,7 +8,7 @@
 
 ```
 // clone repo
-git clone https://github.com/Levminer/create-electron-react-app app_name
+git clone https://github.com/m4rc310RCP/electron_base.git app_name
 
 // change directory
 cd app_name
