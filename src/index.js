@@ -12,9 +12,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<StrictMode>
 		<ApolloWrapper>
+		<AuthProvider>
 				<MStatusBarProvider>
 					<App />
 				</MStatusBarProvider>
+		</AuthProvider>
 		</ApolloWrapper>
 	</StrictMode>
 );
