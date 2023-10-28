@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/electron/main.js",
   "scripts": {
-    "w": "concurrently 'onchange 'src/**/*' -- node update-build-number.js' 'webpack --watch --config webpack.dev.js' 'cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .'",
+    "w": "webpack --watch --config webpack.dev.js",
+    "we": "concurrently 'onchange 'src/**/*' -- node update-build-number.js' 'webpack --watch --config webpack.dev.js' 'cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .'",
     "start": "webpack serve --open --config webpack.dev.js",
     "dev": "webpack --config webpack.dev.js && electron .",
     "electron": "cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .",
@@ -87,7 +88,9 @@
     "@auth0/auth0-react": "^2.2.1",
     "@babel/preset-env": "^7.22.10",
     "codegen": "^0.1.0",
+    "cross-env": "^7.0.3",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.268.0"
+    "lucide-react": "^0.268.0",
+    "node": "^21.1.0"
   }
 }

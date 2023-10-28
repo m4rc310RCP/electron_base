@@ -15,7 +15,7 @@ export const MStatusBar = () => {
 	const Stretch = () => <div className="flex-grow" />;
 
 	return (
-		<div className="flex flex-row gap-1 w-screen p-1 bg-slate-400 text-tiny">
+		<div className="flex flex-row font-semibold select-none gap-1 w-screen p-1 bg-slate-400 text-tiny">
 			<MMessage className="h-auto w-96 " message={message} />
 			<Sp />
 			<BuildCard />

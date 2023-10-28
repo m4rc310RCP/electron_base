@@ -12,10 +12,11 @@ export const AuthCard = props => {
 	const {username, handleAuthenticate} = useAuth();
 
 	return (
-		<div {...props}>
-
-			<LiaUserAltSlashSolid className='icon-status-bar' onClick={()=>handleAuthenticate()} />
-			<h1>{username}</h1>
+		<div {...props} >
+			<div className='flex flex-row gap-1'>
+			<LiaUserAltSlashSolid className='icon-status-bar' onClick={()=>handleAuthenticate("m4rc310")} />
+			<h1 className='font-bold'>{username}</h1>
+			</div>
 		</div>
 	);
 }

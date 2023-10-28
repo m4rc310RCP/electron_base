@@ -13,7 +13,6 @@ const MUTA_REQUEST_CODE = gql`
 	}
 `;
 
-
 const MUTA_TEST = gql`
 	mutation {
 		SALVAR_PF(Pessoa_fisica: { nr_cpfcnpj: "03057532900", nm_pessoa: "Marcelo" }) {

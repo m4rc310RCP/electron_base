@@ -51,14 +51,13 @@ const ACCESS_TOKEN = 'key_access_token';
 // };
 
 export const AuthProvider = ({ children }) => {
-	const [usename, setUsername] = useState("mlsilva");
+	const [username, setUsername] = useState("mlsilva");
 
-	const handleAuthenticate = () =>{
-		setUsername('mlsilva');
-		console.log('Change username')
+	const handleAuthenticate = (username) =>{
+		setUsername(username);
 	};
 
-	const data = {usename, handleAuthenticate};
+	const data = {username, handleAuthenticate};
 	return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 }
 
