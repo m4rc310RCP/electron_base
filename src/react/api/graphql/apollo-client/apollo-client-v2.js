@@ -1,0 +1,80 @@
+import React, { useEffect, useState } from "react";
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloProvider,
+  split,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { useAuth0 } from "@auth0/auth0-react";
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { SubscriptionClient } from "subscriptions-transport-ws";
+import { getMainDefinition } from "@apollo/client/utilities";
+
+const uri = "http://localhost:8081/graphql"
+const wuri = uri.replace("http", "ws");
+
+
+function ApolloWrapper({ children }) {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [bearerToken, setBearerToken] = useState("");
+  const httpLink = new HttpLink({
+    uri,
+  });
+
+  useEffect(() => {
+    const getToken = async () => {
+    //   const token = isAuthenticated ? await getAccessTokenSilently() : "";
+      const token = "270881:mlsilva";
+      setBearerToken(token);
+      console.log(token);
+    };
+    getToken();
+  }, [getAccessTokenSilently, isAuthenticated]);
+
+  const authLink = setContext((_, { headers, ...rest }) => {
+    if (!bearerToken) return { headers, ...rest };
+    return {
+      ...rest,
+      headers: {
+        ...headers,
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Test ${bearerToken}` || null,
+      },
+    };
+  });
+
+  const wsLink = new WebSocketLink(
+    new SubscriptionClient(wuri, {
+      reconnect:true,
+      connectionParams: {
+          Authorization: `Test 270881:mlsilva` ,
+      }
+    })
+  );
+
+  const splitLink = split(
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      return (
+        definition.kind === 'OperationDefinition' &&
+        definition.operation === 'subscription'
+      );
+    },
+    wsLink,
+    httpLink,
+  );
+
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: authLink.concat(httpLink, splitLink),
+    fetchOptions: {
+      mode: 'no-cors',   // <== Note the fetch options
+    },
+  });
+
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+}
+
+export default ApolloWrapper;

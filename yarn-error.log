@@ -1,0 +1,120 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add react@latest react-dom@latest
+
+PATH: 
+  /opt/local/bin:/opt/local/sbin:/Library/Java/apache-maven-3.8.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  17.9.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.3.1.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141517:19)
+      at Object.onceWrapper (node:events:641:28)
+      at ClientRequest.emit (node:events:527:28)
+      at TLSSocket.emitRequestTimeout (node:_http_client:771:9)
+      at Object.onceWrapper (node:events:641:28)
+      at TLSSocket.emit (node:events:539:35)
+      at TLSSocket.Socket._onTimeout (node:net:522:8)
+      at listOnTimeout (node:internal/timers:559:17)
+      at processTimers (node:internal/timers:502:7)
+
+npm manifest: 
+  {
+    "name": "acont",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/electron/main.js",
+    "scripts": {
+      "w": "webpack --watch --config webpack.dev.js",
+      "start": "webpack serve --open --config webpack.dev.js",
+      "dev": "webpack --config webpack.dev.js && electron .",
+      "electron": "cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .",
+      "build": "webpack --config webpack.prod.js",
+      "server": "node server.js",
+      "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+      "f": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+    },
+    "keywords": [],
+    "author": {
+      "name": "Marcelo Lopes da Silva",
+      "email": "marcelo.utfpr@me.com"
+    },
+    "license": "ISC",
+    "devDependencies": {
+      "@apollo/client": "^3.8.2",
+      "@babel/core": "^7.22.10",
+      "@babel/preset-react": "^7.22.5",
+      "@types/react": "^18.2.20",
+      "@types/react-dom": "^18.2.7",
+      "@typescript-eslint/eslint-plugin": "^6.4.0",
+      "antd": "^5.8.5",
+      "autoprefixer": "^10.4.15",
+      "babel-loader": "^9.1.3",
+      "clean-webpack-plugin": "^4.0.0",
+      "copy-webpack-plugin": "^11.0.0",
+      "crypto-js": "^4.1.1",
+      "css-loader": "^6.8.1",
+      "date-fns": "^2.30.0",
+      "dotenv-webpack": "^8.0.1",
+      "electron": "^26.1.0",
+      "electron-is-dev": "^2.0.0",
+      "electron-reload": "^2.0.0-alpha.1",
+      "eslint": "^8.47.0",
+      "eslint-config-prettier": "^9.0.0",
+      "eslint-plugin-import": "^2.28.1",
+      "eslint-plugin-jsx-a11y": "^6.7.1",
+      "eslint-plugin-prettier": "^5.0.0",
+      "eslint-plugin-react": "^7.33.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "express": "^4.18.2",
+      "graphql": "^16.8.0",
+      "html-webpack-plugin": "^5.5.3",
+      "html2canvas": "^1.4.1",
+      "mini-css-extract-plugin": "^2.7.6",
+      "node-cron": "^3.0.2",
+      "path": "^0.12.7",
+      "postcss": "^8.4.28",
+      "postcss-cli": "^10.1.0",
+      "postcss-loader": "^7.3.3",
+      "postcss-preset-env": "^9.1.1",
+      "prettier": "^3.0.2",
+      "prettier-plugin-organize-imports": "^3.2.3",
+      "qrcode.react": "^3.1.0",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-icons": "^4.10.1",
+      "react-router": "^6.15.0",
+      "react-router-dom": "^6.15.0",
+      "react-split": "^2.0.14",
+      "sass": "^1.66.1",
+      "sass-loader": "^13.3.2",
+      "style-loader": "^3.3.3",
+      "subscriptions-transport-ws": "^0.11.0",
+      "tailwindcss": "^3.3.3",
+      "typescript": "^5.2.2",
+      "uuid": "^9.0.0",
+      "webpack": "^5.88.2",
+      "webpack-cli": "^5.1.4",
+      "webpack-dev-middleware": "^6.1.1",
+      "webpack-dev-server": "^4.15.1",
+      "webpack-merge": "^5.9.0"
+    },
+    "dependencies": {
+      "@babel/preset-env": "^7.22.10",
+      "lodash": "^4.17.21",
+      "lucide-react": "^0.268.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

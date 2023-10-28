@@ -9,6 +9,15 @@
 	flex-direction: row;
 }
 
+.icon-status-bar{
+	width: 15px;
+	height: 15px;
+}
+
+.text-tiny {
+	font-size: 11px;
+}
+
 .gutter {
 	/* background-color: #eee;
     background-repeat: no-repeat;

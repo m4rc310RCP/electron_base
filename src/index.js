@@ -1,21 +1,20 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
+import { MStatusBarProvider, AuthProvider } from './react/context';
 
-import { AuthProvider, MClockProvider } from './react/context';
-import { client } from './react/api';
+//import  clienhooks  from './react/api/graphql/apollo-client/apollo-client-v2';
+import { ApolloWrapper } from './react/api/graphql/apollo-client/apollo-client-v3';
 
-import App from './react/App.js';
-import { ApolloProvider } from '@apollo/client';
+import App from './react/AppV2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
 	<StrictMode>
-		<AuthProvider>
-			<MClockProvider>
-				<ApolloProvider client={client}>
+		<ApolloWrapper>
+				<MStatusBarProvider>
 					<App />
-				</ApolloProvider>
-			</MClockProvider>
-		</AuthProvider>
+				</MStatusBarProvider>
+		</ApolloWrapper>
 	</StrictMode>
 );

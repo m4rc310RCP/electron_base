@@ -1,5 +1,7 @@
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
+const { DefinePlugin } = require('webpack');
+
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -7,7 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const tailwindcss = require('tailwindcss')
 const autoprefixer = require('autoprefixer')
-
+const buildInfo = require('./build-info.json');
 
 module.exports = {
   entry: {
@@ -15,6 +17,11 @@ module.exports = {
   },
 
   plugins: [
+
+    new DefinePlugin({
+      'process.env.BUILD_NUMBER': JSON.stringify(buildInfo.buildNumber),
+    }),
+
     new Dotenv(),
 
     new CleanWebpackPlugin(),
@@ -49,8 +56,8 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    //publicPath: path.resolve(__dirname, "dist")
-    publicPath: "/"
+    publicPath: path.resolve(__dirname, "dist")
+    //publicPath: "/"
   },
 
   optimization: {
