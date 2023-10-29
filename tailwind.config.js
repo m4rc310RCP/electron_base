@@ -23,5 +23,10 @@ module.exports = {
       }
     },
   },
+
+  variants: {
+     textTransform: ['responsive', 'hover', 'focus'],
+  },
+
   plugins: [],
 }

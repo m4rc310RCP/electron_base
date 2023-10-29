@@ -1,3 +1,3 @@
 export { authenticate, requestRegisterPos } from './auth';
-export {client}  from './graphql/apollo-client/apollo-client-v2';
-export { findAllProducts } from './sales';
+//export {client}  from './graphql/apollo-client/apollo-client-v2';
+export * from './sales';

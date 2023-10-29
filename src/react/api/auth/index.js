@@ -55,8 +55,6 @@ const SUBS_REQUEST_CODE = gql`
 	}
 `;
 
-
-
 export const requestRegisterPos = ()=>{
 	//localStorage.setItem(SERVER_URL, process.env.AUTH_URL);
 	//const [getCode, {data, loading}] = useQuery(QUERY_REQUEST_CODE);
