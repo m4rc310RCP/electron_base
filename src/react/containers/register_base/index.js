@@ -4,16 +4,16 @@ import { FaComputer } from 'react-icons/fa6';
 export const MPosRegister = () => {
 	const [code, setCode] = useState('');
 	const [disabled, setDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const codeRef = useRef(null);
-    useEffect(()=>{
-        codeRef.current.focus();
-    }, []);
+	const [loading, setLoading] = useState(false);
+	const codeRef = useRef(null);
+	useEffect(() => {
+		codeRef.current.focus();
+	}, []);
 
-    const handleRegisterTerminal = () => {
-        setLoading(true)
-        console.log(`Loading: ${codeRef.current.value}`)
-    }
+	const handleRegisterTerminal = () => {
+		setLoading(true)
+		console.log(`Loading: ${codeRef.current.value}`)
+	}
 
 	return (
 		<div className="flex w-scren h-screen items-center justify-center">
@@ -28,18 +28,23 @@ export const MPosRegister = () => {
 						type="text"
 						maxLength={5}
 						value={code}
-                        placeholder='Código de Registro'
-                        ref={codeRef}
+						placeholder='Código de Registro'
+						ref={codeRef}
 						onChange={(e) => {
 							const res = e.target.value.toUpperCase();
 							setDisabled(res.length < 5);
 							setCode(res);
 						}}
-                        disabled={loading} 
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								handleRegisterTerminal();
+							}
+						}}
+						disabled={loading}
 					/>
-					<button className='px-6 py-3 text-white bg-blue-600 rounded focus:bg-blue-800 text-sm  disabled:opacity-25' disabled={disabled||loading} onClick = {handleRegisterTerminal}>
-                        {loading?'Carregando...':'Registrar Terminal'}
-                    </button>
+					<button className='px-6 py-3 text-white bg-blue-600 rounded focus:bg-blue-800 text-sm  disabled:opacity-25' disabled={disabled || loading} onClick={handleRegisterTerminal}>
+						{loading ? 'Carregando...' : 'Registrar Terminal'}
+					</button>
 				</div>
 			</div>
 		</div>

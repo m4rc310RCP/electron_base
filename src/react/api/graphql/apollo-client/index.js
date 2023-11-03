@@ -6,21 +6,37 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 
 export const httpLink = (uri) =>
 	new HttpLink({
 		uri: { uri },
 	});
 
-export const wsLink = (wsuri, type_token, token) =>
-	new WebSocketLink(
-		new SubscriptionClient(wsuri, {
+	export const wsLink = (wsuri, type_token, token) => {
+		try {
+		  const subscriptionClient = new SubscriptionClient(wsuri, {
 			reconnect: true,
 			connectionParams: {
-				Authorization: token ? `${type_token} ${token}` : '',
+			  Authorization: token ? `${type_token} ${token}` : '',
 			},
-		})
-	);
+		  });
+	  
+		  return new WebSocketLink(subscriptionClient);
+		} catch (error) {
+		  console.error('Erro ao conectar ao WebSocket:', error);
+		  // Faça o que for necessário com o erro, como registrar, notificar o usuário, etc.
+		  // Retorne um fallback ou um link alternativo se o WebSocket falhar
+		  return fallbackWebSocketLink; // Substitua isso pelo seu link de fallback
+		}
+	  };
+
+export const errorLink = onError(({networkError}) => {
+	console.log(' Error MLS')
+	if (networkError){
+		//console.log(`Error: ${networkError}`)
+	}
+});
 
 export const authMiddleware = (type_token, token) =>
 	new ApolloLink((operation, forward) => {
@@ -38,8 +54,9 @@ export const splitLink = (uri, type_token, token) =>
 			const definition = getMainDefinition(query);
 			return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
 		},
-		wsLink(uri, type_token, token),
-		httpLink(uri.replace('http', 'ws'), type_token, token)
+		errorLink.concat(wsLink(uri.replace('http', 'ws'), type_token, token)),
+		//wsLink(uri.replace('http', 'ws'), type_token, token),
+		errorLink.concat(httpLink(uri, type_token, token))
 	);
 
 export const client = (uri, type_token, token) =>

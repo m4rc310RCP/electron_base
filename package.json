@@ -5,7 +5,8 @@
   "main": "src/electron/main.js",
   "scripts": {
     "w": "webpack --watch --config webpack.dev.js",
-    "we": "concurrently 'onchange 'src/**/*' -- node update-build-number.js' 'webpack --watch --config webpack.dev.js' 'cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .'",
+    "we_old": "concurrently 'onchange 'src/**/*' -- node update-build-number.js' 'webpack --watch --config webpack.dev.js' 'cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .'",
+    "we": "concurrently 'webpack --watch --config webpack.dev.js' 'cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .'",
     "start": "webpack serve --open --config webpack.dev.js",
     "dev": "webpack --config webpack.dev.js && electron .",
     "electron": "cross-env NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .",
