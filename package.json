@@ -90,7 +90,6 @@
     "codegen": "^0.1.0",
     "cross-env": "^7.0.3",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.268.0",
-    "node": "^21.1.0"
+    "lucide-react": "^0.268.0"
   }
 }
