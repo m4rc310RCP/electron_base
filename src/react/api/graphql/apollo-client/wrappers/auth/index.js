@@ -3,7 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 
 import { client } from '../../index';
 
-const uri = 'http://localhost:8081/grapql';
+const uri = 'https://home.m4rc310.com.br/graphql';
 const type_token = 'Test';
 const token = 'mlsilva:270881';
 

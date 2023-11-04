@@ -14,7 +14,11 @@ export const httpLink = (uri) =>
 	});
 
 	export const wsLink = (wsuri, type_token, token) => {
-		try {
+		const fallbackLink = new ApolloLink((operation, forward) => {
+			console.log('fallback')
+		  });
+
+
 		  const subscriptionClient = new SubscriptionClient(wsuri, {
 			reconnect: true,
 			connectionParams: {
@@ -23,18 +27,12 @@ export const httpLink = (uri) =>
 		  });
 	  
 		  return new WebSocketLink(subscriptionClient);
-		} catch (error) {
-		  console.error('Erro ao conectar ao WebSocket:', error);
-		  // Faça o que for necessário com o erro, como registrar, notificar o usuário, etc.
-		  // Retorne um fallback ou um link alternativo se o WebSocket falhar
-		  return fallbackWebSocketLink; // Substitua isso pelo seu link de fallback
-		}
 	  };
 
 export const errorLink = onError(({networkError}) => {
 	console.log(' Error MLS')
 	if (networkError){
-		//console.log(`Error: ${networkError}`)
+		console.log(`Error: ${networkError}`)
 	}
 });
 
@@ -56,7 +54,7 @@ export const splitLink = (uri, type_token, token) =>
 		},
 		errorLink.concat(wsLink(uri.replace('http', 'ws'), type_token, token)),
 		//wsLink(uri.replace('http', 'ws'), type_token, token),
-		errorLink.concat(httpLink(uri, type_token, token))
+		httpLink(uri, type_token, token)
 	);
 
 export const client = (uri, type_token, token) =>
