@@ -33,47 +33,43 @@ const MButton = ({ id, description, value }) => {
 	);
 };
 
-
-
 const SUBS_REQUEST_CODE = gql`
-	subscription subRegDevice($nr_parceiro: Long){
-		DISPOSITIVO(nr_parceiro: $nr_parceiro){
-			cd_registro ds_status 
+	subscription subRegDevice($nr_parceiro: Long) {
+		DISPOSITIVO(nr_parceiro: $nr_parceiro) {
+			cd_registro
+			ds_status
 		}
 	}
 `;
 
-
-
-
 const MRequestCode = ({ closeModal }) => {
 	const MUTA_REQUEST_CODE = gql`
 		mutation registerDevice($nr_parceiro: Long) {
-			REGISTRO_DISPOSITIVO(nr_parceiro:$nr_parceiro){
-			cd_registro
+			REGISTRO_DISPOSITIVO(nr_parceiro: $nr_parceiro) {
+				cd_registro
 			}
 		}
 	`;
 
 	const MUTA_TEST = gql`
-		mutation{
-			SALVAR_PF(Pessoa_fisica:{nr_cpfcnpj:"03057532900", nm_pessoa:"Marcelo"}){
-		  		nm_pessoa
+		mutation {
+			SALVAR_PF(Pessoa_fisica: { nr_cpfcnpj: "03057532900", nm_pessoa: "Marcelo" }) {
+				nm_pessoa
 			}
-	 	 }
+		}
 	`;
 
-
-
 	//const {data} = useSubscription(SUBS_REQUEST_CODE, {variables:{nr_parceiro:1}});
-	const [requestCodeHandle, {data, loading}] = useMutation(MUTA_TEST);
+	const [requestCodeHandle, { data, loading }] = useMutation(MUTA_TEST);
 
 	return (
 		<div className="p-2 grid grid-flow-row place-items-center">
 			<h1>Solicitar Código de Registro de Terminal</h1>
 			<code className="px-7 m-5 bg-gray-100 py-2 text-gray-600">
-				<button className="bg-gray-500" onClick={()=>(requestCodeHandle())} >Obter Código</button>
-				{loading&&<h1>Carregando...</h1>}
+				<button className="bg-gray-500" onClick={() => requestCodeHandle()}>
+					Obter Código
+				</button>
+				{loading && <h1>Carregando...</h1>}
 				{/* {data&&<h1>{data?.REGISTRO_DISPOSITIVO.cd_registro}</h1>} */}
 			</code>
 			<div className="inline-flex gap-2">
@@ -100,9 +96,9 @@ const Main = () => {
 	};
 
 	const ticketData = {
-		name:'MML - Product',
-		price: '$10.0'
-	}
+		name: 'MML - Product',
+		price: '$10.0',
+	};
 
 	const ticketRef = useRef(null);
 	const handleSendTiket = () => {
@@ -111,8 +107,8 @@ const Main = () => {
 		// 	const imgurl = canvas.toDataURL();
 		// 	console.log(imgurl);
 		// })
-		console.log(ticket)
-	}
+		console.log(ticket);
+	};
 
 	return (
 		<div>
@@ -137,14 +133,14 @@ const Main = () => {
 			<p className="text-xs">{sdate}</p>
 			<div className={`rounded-full w-3 h-3 ${status[inactiveApp]}`} />
 			<p className="text-xs">{inactiveApp ? 'Inactive' : 'Active'}</p>
-			<div className='grid' ref={ticketRef}>
-				<Ticket  ticketData={ticketData}/>
+			<div className="grid" ref={ticketRef}>
+				<Ticket ticketData={ticketData} />
 				<button onClick={() => handleSendTiket()}>Send</button>
 			</div>
 		</div>
 	);
-}
+};
 
 export default () => {
-	return (<Main />);
+	return <Main />;
 };

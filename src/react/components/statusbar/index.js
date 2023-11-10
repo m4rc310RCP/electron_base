@@ -21,9 +21,8 @@ export const MStatusBar = () => {
 			<BuildCard />
 			<Sp />
 			<Stretch />
-			<Sp/>
+			<Sp />
 			<AuthCard />
 		</div>
 	);
 };
-

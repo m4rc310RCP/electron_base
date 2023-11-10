@@ -2,24 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { VscTools } from 'react-icons/vsc';
 import { PiUserCircle } from 'react-icons/pi';
 import { LiaUserAltSlashSolid } from 'react-icons/lia';
-import { useAuth } from '../../hooks'
-
+import { useAuth } from '../../hooks';
 
 import buildInfo from '../../../../build-info.json';
 
-export const AuthCard = props => {
-
-	const {username, handleAuthenticate} = useAuth();
+export const AuthCard = (props) => {
+	const { username, handleAuthenticate } = useAuth();
 
 	return (
-		<div {...props} >
-			<div className='flex flex-row gap-1'>
-			<LiaUserAltSlashSolid className='icon-status-bar' onClick={()=>handleAuthenticate("m4rc310")} />
-			<h1 className='font-bold'>{username}</h1>
+		<div {...props}>
+			<div className="flex flex-row gap-1">
+				{!username ? (
+					<>
+						<LiaUserAltSlashSolid className="icon-status-bar" onClick={() => handleAuthenticate('m4rc310')} />
+					</>
+				) : (
+					<>
+						<PiUserCircle className="icon-status-bar" onClick={() => handleAuthenticate('m4rc310')} />
+						<h1 className="font-bold">{username}</h1>
+					</>
+				)}
 			</div>
 		</div>
 	);
-}
+};
 
 export const BuildCard = (props) => {
 	const [buildNumber, setBuildNumber] = useState(null);
@@ -35,10 +41,10 @@ export const BuildCard = (props) => {
 	}, []);
 
 	return (
-		<div {...props} >
+		<div {...props}>
 			{buildNumber !== null ? (
-				<div className='flex flex-row gap-1'>
-					<VscTools className='icon-status-bar' />
+				<div className="flex flex-row gap-1">
+					<VscTools className="icon-status-bar" />
 					<h1>Build: {buildNumber}</h1>
 				</div>
 			) : (
@@ -47,4 +53,3 @@ export const BuildCard = (props) => {
 		</div>
 	);
 };
-

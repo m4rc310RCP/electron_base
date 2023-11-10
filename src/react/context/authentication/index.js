@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import CryptoJS from 'crypto-js';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 const ACCESS_TOKEN = 'key_access_token';
 
 // const createPBKDF2Key = () => {
@@ -51,14 +50,14 @@ const ACCESS_TOKEN = 'key_access_token';
 // };
 
 export const AuthProvider = ({ children }) => {
-	const [username, setUsername] = useState("mlsilva");
+	const [username, setUsername] = useState('mmmmm');
 
-	const handleAuthenticate = (username) =>{
+	const handleAuthenticate = (username) => {
 		setUsername(username);
 	};
 
-	const data = {username, handleAuthenticate};
+	const data = { username, handleAuthenticate };
 	return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

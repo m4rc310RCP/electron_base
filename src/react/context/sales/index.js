@@ -6,7 +6,7 @@ const MSalesContetxt = createContext(null);
 
 export const useSales = () => useContext(MSalesContetxt);
 
-export const MSalesProvider = ({children}) => {
+export const MSalesProvider = ({ children }) => {
 	const data = {
 		findAllProducts,
 	};

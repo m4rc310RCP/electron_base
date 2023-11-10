@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useSubscription } from '@apollo/client';
-import { Modal} from './components';
+import { Modal } from './components';
 import { useStatusBar } from './hooks';
 
 import '../style.css';
@@ -29,23 +29,29 @@ const S_DISPOSITIVO = gql`
 	}
 `;
 
-const ModalRequestRegistryDevice = ({close}) =>{
+const ModalRequestRegistryDevice = ({ close }) => {
 	const { updateMessage } = useStatusBar();
-    return (
-        <div className="p-3 grid gap-5shadow-lg ml-auto mr-auto gap-7 text-white place-items-center text-xs">
-			<h1 className='text-sm text-indigo-600'>Ao clicar no botão abaixo, um código de registro será gerado. Digite este código no Terminal que deseja registar para completar o processo.</h1>
-            <button className=" bg-slate-500 py-2 px-6 rounded-md" onClick={()=>updateMessage('Gerando código de acesso!')} >Gerar Código de Registro</button>
-            <button className="  bg-slate-500 py-2 px-6 rounded-md" onClick={()=>close()}>Sair</button>
-        </div>
-    );
-}
+	return (
+		<div className="p-3 grid gap-5shadow-lg ml-auto mr-auto gap-7 text-white place-items-center text-xs">
+			<h1 className="text-sm text-indigo-600">
+				Ao clicar no botão abaixo, um código de registro será gerado. Digite este código no Terminal que deseja registar para completar o
+				processo.
+			</h1>
+			<button className=" bg-slate-500 py-2 px-6 rounded-md" onClick={() => updateMessage('Gerando código de acesso!')}>
+				Gerar Código de Registro
+			</button>
+			<button className="  bg-slate-500 py-2 px-6 rounded-md" onClick={() => close()}>
+				Sair
+			</button>
+		</div>
+	);
+};
 
 const Main = () => {
 	const [numberRegister, setNumberRegister] = useState(undefined);
 	const [isSkip, setIsSkip] = useState(true);
 	const [isOpen, setOpen] = useState(false);
 	const { updateMessage } = useStatusBar();
-
 
 	const [requestCodeHandler, { loading }] = useMutation(MUTA_REQUEST_CODE, {
 		onCompleted: (data) => {
@@ -62,13 +68,13 @@ const Main = () => {
 	});
 
 	const handleModal = () => {
-		updateMessage('Testando o status bar...')
-        setOpen(!isOpen);
-    };
+		updateMessage('Testando o status bar...');
+		setOpen(!isOpen);
+	};
 
 	return (
 		<div>
-			<Modal isOpen={isOpen} close={() => handleModal()} >
+			<Modal isOpen={isOpen} close={() => handleModal()}>
 				<ModalRequestRegistryDevice close={handleModal} />
 			</Modal>
 
@@ -83,4 +89,3 @@ const Main = () => {
 export default () => {
 	return <Main />;
 };
-

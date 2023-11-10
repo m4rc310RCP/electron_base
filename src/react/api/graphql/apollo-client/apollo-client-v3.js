@@ -50,4 +50,3 @@ export const ApolloWrapper = ({ children }) => {
 
 	return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
-

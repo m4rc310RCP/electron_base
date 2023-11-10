@@ -3,8 +3,8 @@ import { v4 as uuidV4 } from 'uuid';
 import CryptoJS from 'crypto-js';
 import { useLazyQuery, gql, useQuery, useSubscription } from '@apollo/client';
 
-const UUID_KEY   = 'uuid.key';
-const APP_TOKEN  = 'app.token';
+const UUID_KEY = 'uuid.key';
+const APP_TOKEN = 'app.token';
 const SERVER_URL = 'server.url';
 
 export const authenticate = (username, password, pbkdf2Key) => {
@@ -17,7 +17,7 @@ export const authenticate = (username, password, pbkdf2Key) => {
 	const code = 1234;
 	// localStorage.setItem(UUID_KEY, uuid);
 
-	const roles = ["ADMIN","USER"];
+	const roles = ['ADMIN', 'USER'];
 
 	let data = {
 		uuid,
@@ -42,22 +42,23 @@ export const authenticate = (username, password, pbkdf2Key) => {
 };
 
 const QUERY_REQUEST_CODE = gql`
-	query obterCodigo{
+	query obterCodigo {
 		OBTER_CODIGO
-  	}
+	}
 `;
 
 const SUBS_REQUEST_CODE = gql`
-	subscription subRegDevice{
-		DISPOSITIVO(nr_parceiro:1){
-			cd_registro ds_status 
+	subscription subRegDevice {
+		DISPOSITIVO(nr_parceiro: 1) {
+			cd_registro
+			ds_status
 		}
 	}
 `;
 
-export const requestRegisterPos = ()=>{
+export const requestRegisterPos = () => {
 	//localStorage.setItem(SERVER_URL, process.env.AUTH_URL);
 	//const [getCode, {data, loading}] = useQuery(QUERY_REQUEST_CODE);
 	// getCode();
 	//console.log(process.env.AUTH_URL);
-}
+};

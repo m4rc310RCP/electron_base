@@ -8,31 +8,31 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
+/*
 export const httpLink = (uri) =>
 	new HttpLink({
 		uri: { uri },
 	});
 
-	export const wsLink = (wsuri, type_token, token) => {
-		const fallbackLink = new ApolloLink((operation, forward) => {
-			console.log('fallback')
-		  });
+export const wsLink = (wsuri, type_token, token) => {
+	const fallbackLink = new ApolloLink((operation, forward) => {
+		console.log('fallback');
+	});
 
+	const subscriptionClient = new SubscriptionClient(wsuri, {
+		reconnect: true,
+		connectionParams: {
+			Authorization: token ? `${type_token} ${token}` : '',
+		},
+	});
 
-		  const subscriptionClient = new SubscriptionClient(wsuri, {
-			reconnect: true,
-			connectionParams: {
-			  Authorization: token ? `${type_token} ${token}` : '',
-			},
-		  });
-	  
-		  return new WebSocketLink(subscriptionClient);
-	  };
+	return new WebSocketLink(subscriptionClient);
+};
 
-export const errorLink = onError(({networkError}) => {
-	console.log(' Error MLS')
-	if (networkError){
-		console.log(`Error: ${networkError}`)
+export const errorLink = onError(({ networkError }) => {
+	console.log(' Error MLS');
+	if (networkError) {
+		console.log(`Error: ${networkError}`);
 	}
 });
 
@@ -56,12 +56,31 @@ export const splitLink = (uri, type_token, token) =>
 		//wsLink(uri.replace('http', 'ws'), type_token, token),
 		httpLink(uri, type_token, token)
 	);
+	*/
 
-export const client = (uri, type_token, token) =>
-	new ApolloClient({
-		cache: new InMemoryCache(),
-		link: concat(authMiddleware(type_token, token), splitLink(uri, type_token, token)),
-		fetchOptions: {
-			mode: 'no-cors',
-		},
+export const clientCustom = ({ uri, type_token, token }) => {
+	const httpLink = new HttpLink({ uri });
+
+	const authLink = new ApolloLink((operation, forward) => {
+		operation.setContext({
+			headers: {
+				Authorization: `${type_token} ${token}`,
+			},
+		});
+		return forward(operation);
 	});
+
+	const errorLink = onError(({ networkError }) => {
+		console.log(' Error MLS');
+		if (networkError) {
+			console.log(`Error: ${networkError}`);
+		}
+	});
+
+	const client = new ApolloClient({
+		link: errorLink.concat(authLink.concat(httpLink)),
+		cache: new InMemoryCache(),
+	});
+
+	return client;
+};

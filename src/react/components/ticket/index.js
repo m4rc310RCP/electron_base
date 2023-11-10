@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import QRCode from 'qrcode.react';
 
-export const Ticket = ({ticketData}) => {
+export const Ticket = ({ ticketData }) => {
 	const canvasRef = useRef(null);
 	const [ticketImage, setTicketImage] = useState('');
 
@@ -37,4 +37,3 @@ export const Ticket = ({ticketData}) => {
 		</div>
 	);
 };
-

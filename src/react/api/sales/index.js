@@ -20,4 +20,9 @@ export const findAllProducts = [
 
 const KEY_LOCAL_DEVICE_CODE = 'mls-device-code';
 let deficeCode = localStorage.getItem(KEY_LOCAL_DEVICE_CODE);
+
 export const isRegister = deficeCode != undefined;
+
+export const storeDeviceAuthentication = (authentication) => {
+	localStorage.setItem(KEY_LOCAL_DEVICE_CODE, authentication);
+};
